@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-color: #F0F7FF;
+  --text-color: #1A1A1A;
+  --card-bg: #FFFFFF;
+  --sidebar-bg: rgba(255, 255, 255, 0.98);
+  --border-color: rgba(99, 102, 241, 0.1);
+  --accent-color: #6366F1;
+}
+
+.dark {
+  --bg-color: #0B0E14;
+  --text-color: #FFFFFF;
+  --card-bg: #161B22;
+  --sidebar-bg: rgba(11, 14, 20, 0.95);
+  --border-color: rgba(255, 255, 255, 0.05);
+}
+
+@layer utilities {
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    @apply font-sans antialiased transition-colors duration-300;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply backdrop-blur-md bg-[var(--sidebar-bg)];
+    border-right: 1px solid var(--border-color);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.3);
+  border-radius: 10px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
