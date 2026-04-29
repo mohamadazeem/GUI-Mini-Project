@@ -8,6 +8,9 @@
         :types="categories"
         :selectedType="selectedCategory"
         v-model:searchQuery="localSearch"
+        v-model:inStock="filterInStock"
+        v-model:onSale="filterOnSale"
+        v-model:maxPrice="filterMaxPrice"
         @selectType="selectCategory"
         @reset="clearFilters"
       />
@@ -85,6 +88,9 @@ const { addToCart } = useCart();
 
 const localSearch = ref('');
 const selectedCategory = ref('');
+const filterInStock = ref(false);
+const filterOnSale = ref(false);
+const filterMaxPrice = ref(3000);
 const showBackToTop = ref(false);
 
 const tags = ['Hot', 'Trending', 'Limited', 'New Arrival', 'Best Seller'];
@@ -128,6 +134,9 @@ const selectCategory = (cat: string) => {
 const clearFilters = () => {
   selectedCategory.value = '';
   localSearch.value = '';
+  filterInStock.value = false;
+  filterOnSale.value = false;
+  filterMaxPrice.value = 3000;
 };
 
 const filteredProducts = computed(() => {
@@ -137,7 +146,17 @@ const filteredProducts = computed(() => {
       p.category.toLowerCase().includes(localSearch.value.toLowerCase());
     const matchesCat = selectedCategory.value === '' ||
       p.category.trim().toLowerCase() === selectedCategory.value.trim().toLowerCase();
-    return matchesSearch && matchesCat;
+    
+    // In Stock filter
+    const matchesStock = !filterInStock.value || p.stock > 0;
+    
+    // On Sale filter
+    const matchesSale = !filterOnSale.value || (p.discountPercentage && p.discountPercentage > 10); // Items with > 10% discount
+    
+    // Price filter
+    const matchesPrice = p.price <= filterMaxPrice.value;
+
+    return matchesSearch && matchesCat && matchesStock && matchesSale && matchesPrice;
   });
 });
 
