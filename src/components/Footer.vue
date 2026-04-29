@@ -35,7 +35,7 @@
         </div>
 
         <!-- Links Columns (Col span 8) -->
-        <div class="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
           
           <!-- Column 1 -->
           <div>
@@ -73,24 +73,7 @@
             </ul>
           </div>
 
-          <!-- Column 4 (Contact info) -->
-          <div>
-            <h3 class="font-bold text-slate-900 dark:text-white mb-6 uppercase text-xs tracking-widest">Contact Us</h3>
-            <ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400 font-medium">
-              <li class="flex items-start gap-3">
-                <MapPinIcon class="w-5 h-5 text-indigo-500 shrink-0 -mt-0.5" />
-                <span class="leading-relaxed">123 Commerce Avenue, Tech Park, NY 10001</span>
-              </li>
-              <li class="flex items-center gap-3">
-                <PhoneIcon class="w-4 h-4 text-indigo-500 shrink-0" />
-                <span>+1 (800) 123-4567</span>
-              </li>
-              <li class="flex items-center gap-3">
-                <MailIcon class="w-4 h-4 text-indigo-500 shrink-0" />
-                <span>support@azeemstores.com</span>
-              </li>
-            </ul>
-          </div>
+
         </div>
       </div>
 
@@ -150,8 +133,6 @@ import {
   InstagramIcon,
   FacebookIcon,
   YoutubeIcon,
-  MapPinIcon,
-  PhoneIcon,
   MailIcon
 } from 'lucide-vue-next';
 </script>
