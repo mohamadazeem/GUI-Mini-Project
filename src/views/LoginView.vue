@@ -1,139 +1,135 @@
 <template>
-  <div class="min-h-screen flex w-full bg-[#F8FAFC] dark:bg-[#0B0E14] font-sans transition-colors duration-500 overflow-hidden">
+  <div class="min-h-screen flex w-full bg-white dark:bg-[#0B0E14] font-sans overflow-hidden">
     
-    <!-- LEFT SIDE: IMAGE & GREETING -->
+    <!-- LEFT SIDE: IMAGE & GREETING (Restored) -->
     <div class="hidden lg:flex lg:w-1/2 relative h-screen overflow-hidden">
-      <!-- Background Image -->
       <img 
         src="/new_login_image.png" 
         alt="Azeem Stores Premium" 
         class="absolute inset-0 w-full h-full object-cover animate-slow-zoom"
       />
-      
-      <!-- Gradient Overlay -->
-      <div class="absolute inset-0 bg-gradient-to-tr from-[#0F172A]/90 via-[#1E3A8A]/40 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-tr from-[#1E3A8A]/90 via-[#1E40AF]/40 to-transparent"></div>
 
-      <!-- Glassmorphism Greeting Card -->
       <div class="relative z-10 flex flex-col justify-center items-start px-20 w-full h-full">
-        <div class="bg-white/10 backdrop-blur-xl p-12 rounded-[3rem] border border-white/20 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] animate-fade-in-up">
+        <div class="bg-white/10 backdrop-blur-xl p-12 rounded-[3rem] border border-white/20 shadow-2xl animate-fade-in-up">
           <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-8 border border-white/30 shadow-inner">
             <ShoppingBagIcon class="w-8 h-8 text-white" />
           </div>
           <h1 class="text-6xl font-black text-white tracking-tighter leading-none mb-4">Hello!</h1>
           <p class="text-white/80 text-xl font-bold tracking-tight max-w-sm leading-relaxed">
-            Welcome to <span class="text-sky-300 font-black">Azeem Stores</span>. Experience shopping at its finest.
+            Welcome back to <span class="text-sky-300 font-black">Azeem Stores</span>.
           </p>
-          
-          <div class="mt-12 flex items-center gap-4 text-white/60 text-xs font-black uppercase tracking-[0.2em]">
-            <div class="w-12 h-px bg-white/20"></div>
-            <span>Trusted by 50K+ Shoppers</span>
-          </div>
         </div>
       </div>
     </div>
 
-    <!-- RIGHT SIDE: LOGIN FORM -->
-    <div class="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-20 relative">
-      
-      <!-- Mobile Greeting -->
-      <div class="lg:hidden absolute top-0 left-0 right-0 h-64 bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] flex flex-col justify-center px-10 rounded-b-[3rem]">
-        <h1 class="text-4xl font-black text-white tracking-tighter mb-1">Hello!</h1>
-        <p class="text-white/80 text-sm font-bold tracking-tight">Welcome to Azeem Stores</p>
-      </div>
-
-      <div class="w-full max-w-[460px] bg-white dark:bg-[#161B22] p-10 sm:p-12 rounded-[3rem] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] dark:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)] border border-slate-200 dark:border-white/5 relative z-10 lg:mt-0 mt-32">
+    <!-- RIGHT SIDE: NEW DESIGN FORM -->
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 relative overflow-y-auto">
+      <div class="w-full max-w-[440px] flex flex-col items-center animate-fade-in">
         
-        <div class="mb-12">
-          <h2 class="text-4xl font-black text-slate-900 dark:text-white tracking-tight">Login</h2>
-          <div class="h-1.5 w-12 bg-sky-500 rounded-full mt-4"></div>
+        <!-- Logo Header -->
+        <div class="flex items-center gap-3 mb-8">
+          <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
+            <ShoppingBagIcon class="w-5 h-5 text-white" />
+          </div>
+          <h1 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Azeem Stores</h1>
         </div>
 
-        <!-- Error message -->
-        <transition name="fade">
-          <div v-if="error" class="mb-8 bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 p-4 rounded-2xl text-[11px] font-black uppercase tracking-wider flex items-center border border-rose-200 dark:border-rose-900/30 shadow-sm">
-            <AlertCircleIcon class="h-4 w-4 mr-3" />
-            <span>{{ error }}</span>
-          </div>
-        </transition>
+        <!-- Welcome Text -->
+        <div class="w-full mb-6 text-left">
+          <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-1 leading-tight">Nice to see you again</h2>
+          <p class="text-slate-400 dark:text-slate-500 font-medium text-sm">Please enter your details to continue.</p>
+        </div>
 
-        <form @submit.prevent="handleLogin" class="space-y-6">
-          <!-- Username -->
-          <div class="group">
-            <label class="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 mb-2.5 block">Account Username</label>
-            <div class="relative flex items-center">
-              <div class="absolute left-6 text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                <UserIcon class="w-5 h-5" />
-              </div>
-              <input
-                v-model="username"
-                type="text"
-                required
-                class="w-full pl-16 pr-6 py-7 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-transparent group-focus-within:border-sky-500 group-focus-within:bg-white dark:group-focus-within:bg-white/10 rounded-[1.5rem] text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none transition-all font-bold text-base shadow-sm"
-                placeholder="e.g. emilys"
-              />
-            </div>
+        <!-- Login Form -->
+        <form @submit.prevent="handleLogin" class="w-full space-y-4">
+          <div class="space-y-1.5">
+            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block px-1">Username</label>
+            <input
+              v-model="username"
+              type="text"
+              required
+              class="w-full px-5 py-3.5 bg-slate-100 dark:bg-slate-800/50 border-none rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 transition-all font-bold"
+              placeholder="Enter your username"
+            />
           </div>
 
-          <!-- Password -->
-          <div class="group">
-            <div class="flex justify-between items-center ml-1 mb-2.5">
-              <label class="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest block">Security Password</label>
-              <a href="#" class="text-[10px] font-black text-sky-500 hover:text-sky-600 uppercase tracking-[0.15em] transition-colors">Forgot?</a>
-            </div>
+          <div class="space-y-1.5">
+            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block px-1">Password</label>
             <div class="relative flex items-center">
-              <div class="absolute left-6 text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                <LockIcon class="w-5 h-5" />
-              </div>
               <input
                 v-model="password"
                 :type="showPassword ? 'text' : 'password'"
                 required
-                class="w-full pl-16 pr-16 py-7 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-transparent group-focus-within:border-sky-500 group-focus-within:bg-white dark:group-focus-within:bg-white/10 rounded-[1.5rem] text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none transition-all font-bold text-base shadow-sm"
-                placeholder="••••••••"
+                class="w-full px-5 py-3.5 bg-slate-100 dark:bg-slate-800/50 border-none rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 transition-all font-bold"
+                placeholder="Enter password"
               />
-              <button type="button" @click="showPassword = !showPassword" class="absolute right-5 text-slate-400 hover:text-sky-500 transition-colors">
+              <button type="button" @click="showPassword = !showPassword" class="absolute right-4 text-slate-400 hover:text-blue-500 transition-colors">
                 <EyeIcon v-if="!showPassword" class="h-4 w-4" />
                 <EyeOffIcon v-else class="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          <!-- Login Button -->
+          <!-- Options Row -->
+          <div class="flex items-center justify-between px-1">
+            <label class="flex items-center cursor-pointer group">
+              <div class="relative">
+                <input type="checkbox" class="sr-only" v-model="rememberMe" />
+                <div class="w-8 h-5 bg-slate-200 dark:bg-slate-700 rounded-full transition-colors" :class="{'bg-blue-600': rememberMe}"></div>
+                <div class="absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full transition-transform shadow-sm" :class="{'translate-x-3': rememberMe}"></div>
+              </div>
+              <span class="ml-2 text-xs font-bold text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">Remember me</span>
+            </label>
+            <a href="#" class="text-xs font-black text-blue-600 hover:underline">Forgot password?</a>
+          </div>
+
+          <!-- Test Credentials Box -->
+          <div class="bg-blue-50 dark:bg-blue-900/10 border-l-4 border-blue-500 p-3 rounded-r-xl flex items-start gap-3">
+            <div class="mt-0.5"><div class="w-3.5 h-3.5 rounded-full border border-blue-500 flex items-center justify-center"><span class="text-[9px] font-black text-blue-500">i</span></div></div>
+            <div>
+              <h4 class="text-[11px] font-black text-blue-600 mb-1 uppercase tracking-wider">Valid Test Credentials</h4>
+              <div class="flex items-center gap-2 text-[10px] font-bold text-slate-500 dark:text-slate-400">
+                <span>User:</span> <span class="bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-blue-600">emilys</span>
+                <span class="ml-1">Pass:</span> <span class="bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-blue-600">emilyspass</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sign In Button -->
           <button
             type="submit"
             :disabled="isLoading || !username || !password"
-            class="w-full py-5 bg-gradient-to-r from-[#1E3A8A] to-[#3B82F6] hover:from-[#1E40AF] hover:to-[#2563EB] text-white font-black rounded-[1.25rem] transition-all shadow-xl shadow-blue-500/30 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 group overflow-hidden relative"
+            class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl transition-all shadow-lg shadow-blue-600/20 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center text-base"
           >
-            <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-            <Loader2Icon v-if="isLoading" class="w-5 h-5 animate-spin relative z-10" />
-            <span class="tracking-[0.2em] uppercase text-xs relative z-10">{{ isLoading ? 'Verifying...' : 'Access Dashboard' }}</span>
-            <ArrowRightIcon v-if="!isLoading" class="w-4 h-4 transition-transform group-hover:translate-x-1 relative z-10" />
+            <Loader2Icon v-if="isLoading" class="w-5 h-5 animate-spin mr-2" />
+            <span>{{ isLoading ? 'Signing in...' : 'Sign in' }}</span>
           </button>
         </form>
 
-        <!-- Social Login -->
-        <div class="mt-14">
-          <div class="relative w-full flex items-center justify-center mb-10">
-            <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-200 dark:border-white/5"></div></div>
-            <span class="relative px-6 bg-white dark:bg-[#161B22] text-[9px] font-black text-slate-400 uppercase tracking-[0.3em]">Instant Connect</span>
-          </div>
-
-          <div class="flex gap-4">
-            <button v-for="social in socialButtons" :key="social.name" class="flex-1 h-16 rounded-[1.25rem] bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/5 flex items-center justify-center hover:scale-105 active:scale-95 transition-all hover:bg-white dark:hover:bg-white/10 shadow-sm hover:shadow-md group">
-              <component :is="social.icon" class="w-5 h-5 transition-transform group-hover:scale-110" :style="{ color: social.color }" />
-            </button>
-          </div>
+        <!-- Divider -->
+        <div class="w-full flex items-center gap-3 my-6">
+          <div class="flex-1 h-px bg-slate-100 dark:bg-slate-800"></div>
+          <span class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">Or sign in with</span>
+          <div class="flex-1 h-px bg-slate-100 dark:bg-slate-800"></div>
         </div>
 
-        <p class="mt-14 text-center text-[11px] font-bold text-slate-500 dark:text-slate-400">
-          Not a member yet? 
-          <router-link to="/register" class="text-sky-500 font-black hover:underline uppercase tracking-widest ml-1 transition-colors">Join Azeem Stores</router-link>
+        <!-- Google Button -->
+        <button class="w-full py-3.5 bg-[#262626] hover:bg-[#1a1a1a] text-white font-bold rounded-xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] shadow-md text-sm">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          <span>Or sign in with Google</span>
+        </button>
+
+        <!-- Footer -->
+        <p class="mt-6 text-xs font-bold text-slate-500 dark:text-slate-400">
+          Don't have an account? 
+          <router-link to="/register" class="text-blue-600 font-black hover:underline uppercase tracking-widest text-[10px] ml-1">Sign up now</router-link>
         </p>
-
-        <!-- Demo Help -->
-        <div class="mt-10 p-5 rounded-[1.5rem] bg-slate-50 dark:bg-white/5 border-2 border-dashed border-slate-200 dark:border-white/10 text-[9px] text-center text-slate-400 font-black uppercase tracking-[0.15em] leading-relaxed">
-          Demo: emilys / emilyspass
-        </div>
       </div>
     </div>
   </div>
@@ -144,17 +140,10 @@ import { ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useAuth } from '../composables/useAuth';
 import { 
-  LockIcon, 
-  UserIcon,
+  ShoppingBagIcon, 
   EyeIcon, 
   EyeOffIcon, 
   Loader2Icon,
-  AlertCircleIcon,
-  ShoppingBagIcon,
-  FacebookIcon,
-  GithubIcon,
-  TwitterIcon,
-  ArrowRightIcon
 } from 'lucide-vue-next';
 
 const router = useRouter();
@@ -164,12 +153,7 @@ const { login, isLoading, error } = useAuth();
 const username = ref('');
 const password = ref('');
 const showPassword = ref(false);
-
-const socialButtons = [
-  { name: 'Facebook', icon: FacebookIcon, color: '#1877F2' },
-  { name: 'Google', icon: GithubIcon, color: '#333' },
-  { name: 'Apple', icon: TwitterIcon, color: '#000' }
-];
+const rememberMe = ref(false);
 
 const handleLogin = async () => {
   if (!username.value || !password.value) return;
@@ -196,11 +180,12 @@ const handleLogin = async () => {
 .animate-slow-zoom {
   animation: slowZoom 30s linear infinite alternate;
 }
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.4s ease;
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-.fade-enter-from, .fade-leave-to {
-  opacity: 0;
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>

@@ -9,7 +9,7 @@
         </transition>
       </router-view>
       
-      <Footer v-if="!isShopPage" />
+      <Footer v-if="!hideFooter" />
     </main>
     
     <CartSidebar />
@@ -29,7 +29,7 @@ import { useRoute } from 'vue-router';
 const { initDarkMode } = useDarkMode();
 const route = useRoute();
 
-const isShopPage = computed(() => route.path === '/shop');
+const hideFooter = computed(() => ['/shop', '/login', '/register'].includes(route.path));
 
 onMounted(() => {
   initDarkMode();

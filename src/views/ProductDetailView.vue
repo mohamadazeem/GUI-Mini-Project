@@ -44,15 +44,12 @@
               class="max-h-full object-contain transition-transform duration-700 group-hover:scale-110"
             />
           </transition>
-          <div class="absolute top-6 left-6 bg-sky-500/10 backdrop-blur-md text-sky-600 dark:text-sky-400 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest border border-sky-500/20">
-            Premium Quality
-          </div>
         </div>
         
         <!-- Vertical Thumbnails (Right) -->
-        <div v-if="product.images && product.images.length > 0" class="flex flex-row md:flex-col gap-4 w-full md:w-auto justify-center">
+        <div v-if="displayImages.length > 0" class="flex flex-row md:flex-col gap-4 w-full md:w-auto justify-center">
           <button 
-            v-for="(img, idx) in product.images.slice(0, 3)" 
+            v-for="(img, idx) in displayImages" 
             :key="idx" 
             @click="selectedImage = img"
             class="w-20 h-20 md:w-24 md:h-24 bg-white dark:bg-slate-800 rounded-2xl border-2 overflow-hidden transition-all duration-300 relative group"
@@ -139,7 +136,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { StarIcon, ShoppingCartIcon, AlertCircleIcon, ZapIcon, HeartIcon } from 'lucide-vue-next';
 import { useProducts } from '../composables/useProducts';
@@ -154,13 +151,28 @@ const { toggleWishlist, isInWishlist } = useWishlist();
 
 const selectedImage = ref<string | null>(null);
 
+// Ensure at least 2 thumbnails by combining images and thumbnail
+const displayImages = computed(() => {
+  if (!product.value) return [];
+  
+  const allImages = [product.value.thumbnail, ...(product.value.images || [])];
+  const uniqueImages = [...new Set(allImages)].filter(img => img);
+  
+  // If still only 1 image, duplicate it to satisfy the "at least 2" requirement
+  if (uniqueImages.length === 1) {
+    return [uniqueImages[0], uniqueImages[0]];
+  }
+  
+  return uniqueImages.slice(0, 3);
+});
+
 onMounted(() => {
   fetchProductById(route.params.id as string);
 });
 
 watch(product, (newVal) => {
   if (newVal) {
-    selectedImage.value = newVal.images && newVal.images.length > 0 ? newVal.images[0] : newVal.thumbnail;
+    selectedImage.value = displayImages.value[0];
   }
 });
 
