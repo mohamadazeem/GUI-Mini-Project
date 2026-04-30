@@ -35,33 +35,47 @@
     <!-- SCROLLABLE CONTENT (Tight layout to avoid actual scrolling) -->
     <div class="flex-1 overflow-y-auto hide-scrollbar scroll-smooth">
       
-      <!-- CATEGORIES (Vertical List) -->
-      <div class="p-4 border-b border-slate-50 dark:border-white/5">
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-2">
-            <LayoutGridIcon class="w-3.5 h-3.5 text-indigo-500" />
-            <span class="text-[11px] font-black text-slate-900 dark:text-white uppercase tracking-tight">Categories</span>
-          </div>
-          <span class="text-[9px] font-bold text-slate-400">{{ types.length }}</span>
-        </div>
-        <div class="space-y-1">
+      <!-- CATEGORIES (Dropdown Style) -->
+      <div class="p-4 border-b border-slate-50 dark:border-white/5 relative">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Category</span>
           <button 
             @click="$emit('selectType', '')"
-            class="w-full text-left px-3 py-2 rounded-lg text-[11px] font-bold transition-all flex items-center justify-between"
-            :class="selectedType === '' ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5'"
+            class="text-[10px] font-bold text-teal-500 hover:text-teal-400 transition-colors uppercase tracking-tight"
           >
-            All Collections
-            <CheckIcon v-if="selectedType === ''" class="w-3 h-3 text-indigo-500" />
+            Clear
           </button>
+        </div>
+        
+        <div class="relative">
           <button 
-            v-for="cat in types.slice(0, 10)" :key="cat"
-            @click="$emit('selectType', cat)"
-            class="w-full text-left px-3 py-2 rounded-lg text-[11px] font-bold transition-all flex items-center justify-between capitalize"
-            :class="selectedType === cat ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5'"
+            @click="isCategoriesOpen = !isCategoriesOpen"
+            class="w-full flex items-center justify-between px-5 py-3 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-sm font-medium transition-all hover:border-indigo-400/50 group"
           >
-            {{ formatCategory(cat) }}
-            <CheckIcon v-if="selectedType === cat" class="w-3 h-3 text-indigo-500" />
+            <span class="capitalize text-slate-700 dark:text-slate-300">
+              {{ selectedType === '' ? 'All Categories' : formatCategory(selectedType) }}
+            </span>
+            <ChevronDownIcon 
+              class="w-4 h-4 text-slate-400 transition-transform duration-300 group-hover:text-indigo-500"
+              :class="{ 'rotate-180': isCategoriesOpen }"
+            />
           </button>
+
+          <!-- Dropdown List -->
+          <transition name="dropdown">
+            <div v-if="isCategoriesOpen" 
+              class="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-[#161B22] border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-2xl z-50 max-h-48 overflow-y-auto hide-scrollbar p-2"
+            >
+              <button 
+                v-for="cat in types" :key="cat"
+                @click="selectAndClose(cat)"
+                class="w-full text-left px-4 py-2.5 rounded-xl text-xs font-medium transition-all capitalize"
+                :class="selectedType === cat ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/20' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-indigo-500'"
+              >
+                {{ formatCategory(cat) }}
+              </button>
+            </div>
+          </transition>
         </div>
       </div>
 
@@ -167,8 +181,10 @@ import {
   DollarSignIcon,
   StarIcon,
   TagIcon,
-  CheckIcon
+  CheckIcon,
+  ChevronDownIcon
 } from 'lucide-vue-next';
+import { ref } from 'vue';
 
 const props = defineProps<{
   totalItems: number;
@@ -189,8 +205,15 @@ const emit = defineEmits([
   'update:maxPrice'
 ]);
 
+const isCategoriesOpen = ref(false);
+
 const formatCategory = (cat: string) =>
   cat.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+
+const selectAndClose = (cat: string) => {
+  emit('selectType', cat);
+  isCategoriesOpen.value = false;
+};
 
 </script>
 
