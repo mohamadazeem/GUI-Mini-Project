@@ -12,6 +12,7 @@
         v-model:searchQuery="localSearch"
         v-model:inStock="filterInStock"
         v-model:onSale="filterOnSale"
+        v-model:topRated="filterTopRated"
         v-model:maxPrice="filterMaxPrice"
         @selectType="selectCategory"
         @reset="clearFilters"
@@ -93,6 +94,7 @@ const selectedCategory = ref('');
 const selectedBrand = ref('');
 const filterInStock = ref(false);
 const filterOnSale = ref(false);
+const filterTopRated = ref(false);
 const filterMaxPrice = ref(3000);
 const showBackToTop = ref(false);
 
@@ -147,6 +149,7 @@ const clearFilters = () => {
   localSearch.value = '';
   filterInStock.value = false;
   filterOnSale.value = false;
+  filterTopRated.value = false;
   filterMaxPrice.value = 3000;
 };
 
@@ -167,11 +170,14 @@ const filteredProducts = computed(() => {
     
     // On Sale filter
     const matchesSale = !filterOnSale.value || (p.discountPercentage && p.discountPercentage > 10); // Items with > 10% discount
+
+    // Top Rated filter (rating >= 4.5)
+    const matchesTopRated = !filterTopRated.value || p.rating >= 4.5;
     
     // Price filter
     const matchesPrice = p.price <= filterMaxPrice.value;
 
-    return matchesSearch && matchesCat && matchesBrand && matchesStock && matchesSale && matchesPrice;
+    return matchesSearch && matchesCat && matchesBrand && matchesStock && matchesSale && matchesTopRated && matchesPrice;
   });
 });
 
