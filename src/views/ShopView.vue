@@ -8,6 +8,7 @@
         :types="categories"
         :selectedType="selectedCategory"
         :brands="uniqueBrands"
+        :maxPriceLimit="maxProductPrice"
         v-model:selectedBrand="selectedBrand"
         v-model:searchQuery="localSearch"
         v-model:inStock="filterInStock"
@@ -75,7 +76,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useProducts } from '../composables/useProducts';
 import { useCart } from '../composables/useCart';
@@ -95,7 +96,7 @@ const selectedBrand = ref('');
 const filterInStock = ref(false);
 const filterOnSale = ref(false);
 const filterTopRated = ref(false);
-const filterMaxPrice = ref(3000);
+const filterMaxPrice = ref(5000);
 const showBackToTop = ref(false);
 
 const tags = ['Hot', 'Trending', 'Limited', 'New Arrival', 'Best Seller'];
@@ -113,6 +114,18 @@ const uniqueBrands = computed(() => {
     .filter((b): b is string => !!b);
   return Array.from(new Set(brands)).sort();
 });
+
+const maxProductPrice = computed(() => {
+  if (products.value.length === 0) return 3000;
+  return Math.ceil(Math.max(...products.value.map(p => p.price)));
+});
+
+// Update initial filterMaxPrice when products are loaded
+watch(maxProductPrice, (newMax) => {
+  if (filterMaxPrice.value === 5000 || filterMaxPrice.value < newMax) {
+    filterMaxPrice.value = newMax;
+  }
+}, { immediate: true });
 
 const handleScroll = (e: Event) => {
   const target = e.target as HTMLElement;
@@ -150,7 +163,7 @@ const clearFilters = () => {
   filterInStock.value = false;
   filterOnSale.value = false;
   filterTopRated.value = false;
-  filterMaxPrice.value = 3000;
+  filterMaxPrice.value = maxProductPrice.value;
 };
 
 const filteredProducts = computed(() => {
