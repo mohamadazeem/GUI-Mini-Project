@@ -8,7 +8,15 @@
         class="w-full h-full object-contain filter drop-shadow-md transition-transform duration-500 group-hover:scale-110"
       />
       <!-- Hover Overlay -->
-      <div class="absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="absolute inset-0 bg-black/5 dark:bg-white/5 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center p-4 backdrop-blur-[2px]">
+        <button
+          @click.stop="onAddToCart"
+          class="translate-y-8 group-hover:translate-y-0 transition-transform duration-500 bg-indigo-600 hover:bg-indigo-700 text-white font-black py-3 px-6 rounded-xl shadow-xl flex items-center gap-2 text-sm whitespace-nowrap active:scale-95"
+        >
+          <ShoppingCartIcon class="w-4 h-4" />
+          <span>+ Add to Cart</span>
+        </button>
+      </div>
       
       <!-- Discount Badge top-left -->
       <div
