@@ -49,7 +49,7 @@
         
         <div class="relative">
           <button 
-            @click="isCategoriesOpen = !isCategoriesOpen"
+            @click="toggleDropdown('categories')"
             class="w-full flex items-center justify-between px-5 py-3 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-sm font-medium transition-all hover:border-indigo-400/50 group"
           >
             <span class="capitalize text-slate-700 dark:text-slate-300">
@@ -79,22 +79,47 @@
         </div>
       </div>
 
-      <!-- BRANDS (Visible by Default) -->
-      <div class="p-4 border-b border-slate-50 dark:border-white/5">
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-2">
-            <TagIcon class="w-3.5 h-3.5 text-indigo-500" />
-            <span class="text-[11px] font-black text-slate-900 dark:text-white uppercase tracking-tight">Top Brands</span>
-          </div>
-        </div>
-        <div class="grid grid-cols-2 gap-2">
+      <!-- BRANDS (Dropdown Style) -->
+      <div class="p-4 border-b border-slate-50 dark:border-white/5 relative">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Brand</span>
           <button 
-            v-for="brand in ['Apple', 'Samsung', 'Nike', 'Adidas']" :key="brand"
-            class="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 hover:border-indigo-400 transition-all group"
+            @click="$emit('update:selectedBrand', '')"
+            class="text-[10px] font-bold text-teal-500 hover:text-teal-400 transition-colors uppercase tracking-tight"
           >
-            <div class="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover:bg-indigo-500 transition-colors"></div>
-            <span class="text-[10px] font-bold text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:text-slate-100">{{ brand }}</span>
+            Clear
           </button>
+        </div>
+        
+        <div class="relative">
+          <button 
+            @click="toggleDropdown('brands')"
+            class="w-full flex items-center justify-between px-5 py-3 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-sm font-medium transition-all hover:border-indigo-400/50 group"
+          >
+            <span class="capitalize text-slate-700 dark:text-slate-300">
+              {{ selectedBrand === '' ? 'All Brands' : selectedBrand }}
+            </span>
+            <ChevronDownIcon 
+              class="w-4 h-4 text-slate-400 transition-transform duration-300 group-hover:text-indigo-500"
+              :class="{ 'rotate-180': isBrandsOpen }"
+            />
+          </button>
+
+          <!-- Dropdown List -->
+          <transition name="dropdown">
+            <div v-if="isBrandsOpen" 
+              class="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-[#161B22] border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-2xl z-50 max-h-48 overflow-y-auto hide-scrollbar p-2"
+            >
+              <button 
+                v-for="brand in brands" :key="brand"
+                @click="selectBrandAndClose(brand)"
+                class="w-full text-left px-4 py-2.5 rounded-xl text-xs font-medium transition-all"
+                :class="selectedBrand === brand ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/20' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-indigo-500'"
+              >
+                {{ brand }}
+              </button>
+            </div>
+          </transition>
         </div>
       </div>
 
@@ -190,6 +215,8 @@ const props = defineProps<{
   totalItems: number;
   types: string[];
   selectedType: string;
+  brands: string[];
+  selectedBrand: string;
   searchQuery: string;
   inStock: boolean;
   onSale: boolean;
@@ -202,10 +229,22 @@ const emit = defineEmits([
   'update:searchQuery',
   'update:inStock',
   'update:onSale',
-  'update:maxPrice'
+  'update:maxPrice',
+  'update:selectedBrand'
 ]);
 
 const isCategoriesOpen = ref(false);
+const isBrandsOpen = ref(false);
+
+const toggleDropdown = (type: 'categories' | 'brands') => {
+  if (type === 'categories') {
+    isCategoriesOpen.value = !isCategoriesOpen.value;
+    isBrandsOpen.value = false;
+  } else {
+    isBrandsOpen.value = !isBrandsOpen.value;
+    isCategoriesOpen.value = false;
+  }
+};
 
 const formatCategory = (cat: string) =>
   cat.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
@@ -213,6 +252,11 @@ const formatCategory = (cat: string) =>
 const selectAndClose = (cat: string) => {
   emit('selectType', cat);
   isCategoriesOpen.value = false;
+};
+
+const selectBrandAndClose = (brand: string) => {
+  emit('update:selectedBrand', brand);
+  isBrandsOpen.value = false;
 };
 
 </script>

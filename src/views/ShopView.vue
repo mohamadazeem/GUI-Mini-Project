@@ -7,6 +7,8 @@
         :totalItems="filteredProducts.length"
         :types="categories"
         :selectedType="selectedCategory"
+        :brands="uniqueBrands"
+        v-model:selectedBrand="selectedBrand"
         v-model:searchQuery="localSearch"
         v-model:inStock="filterInStock"
         v-model:onSale="filterOnSale"
@@ -88,6 +90,7 @@ const { addToCart } = useCart();
 
 const localSearch = ref('');
 const selectedCategory = ref('');
+const selectedBrand = ref('');
 const filterInStock = ref(false);
 const filterOnSale = ref(false);
 const filterMaxPrice = ref(3000);
@@ -101,6 +104,13 @@ const getProductTag = (index: number) => {
   if (index % 3 === 0) return tags[3];
   return undefined;
 };
+
+const uniqueBrands = computed(() => {
+  const brands = products.value
+    .map(p => p.brand)
+    .filter((b): b is string => !!b);
+  return Array.from(new Set(brands)).sort();
+});
 
 const handleScroll = (e: Event) => {
   const target = e.target as HTMLElement;
@@ -133,6 +143,7 @@ const selectCategory = (cat: string) => {
 
 const clearFilters = () => {
   selectedCategory.value = '';
+  selectedBrand.value = '';
   localSearch.value = '';
   filterInStock.value = false;
   filterOnSale.value = false;
@@ -144,8 +155,12 @@ const filteredProducts = computed(() => {
     const matchesSearch = localSearch.value === '' ||
       p.title.toLowerCase().includes(localSearch.value.toLowerCase()) ||
       p.category.toLowerCase().includes(localSearch.value.toLowerCase());
+    
     const matchesCat = selectedCategory.value === '' ||
       p.category.trim().toLowerCase() === selectedCategory.value.trim().toLowerCase();
+    
+    const matchesBrand = selectedBrand.value === '' ||
+      p.brand === selectedBrand.value;
     
     // In Stock filter
     const matchesStock = !filterInStock.value || p.stock > 0;
@@ -156,7 +171,7 @@ const filteredProducts = computed(() => {
     // Price filter
     const matchesPrice = p.price <= filterMaxPrice.value;
 
-    return matchesSearch && matchesCat && matchesStock && matchesSale && matchesPrice;
+    return matchesSearch && matchesCat && matchesBrand && matchesStock && matchesSale && matchesPrice;
   });
 });
 
