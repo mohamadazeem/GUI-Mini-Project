@@ -35,7 +35,7 @@
     <!-- SCROLLABLE CONTENT (Tight layout to avoid actual scrolling) -->
     <div class="flex-1 overflow-y-auto hide-scrollbar scroll-smooth">
       
-      <!-- CATEGORIES (Always Visible) -->
+      <!-- CATEGORIES (Vertical List) -->
       <div class="p-4 border-b border-slate-50 dark:border-white/5">
         <div class="flex items-center justify-between mb-3">
           <div class="flex items-center gap-2">
@@ -44,21 +44,23 @@
           </div>
           <span class="text-[9px] font-bold text-slate-400">{{ types.length }}</span>
         </div>
-        <div class="flex flex-wrap gap-1.5">
+        <div class="space-y-1">
           <button 
             @click="$emit('selectType', '')"
-            class="px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-all border"
-            :class="selectedType === '' ? 'bg-indigo-500 border-indigo-500 text-white shadow-md shadow-indigo-500/10' : 'bg-slate-50 dark:bg-white/5 border-slate-100 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:border-indigo-300'"
+            class="w-full text-left px-3 py-2 rounded-lg text-[11px] font-bold transition-all flex items-center justify-between"
+            :class="selectedType === '' ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5'"
           >
-            All
+            All Collections
+            <CheckIcon v-if="selectedType === ''" class="w-3 h-3 text-indigo-500" />
           </button>
           <button 
-            v-for="cat in types.slice(0, 6)" :key="cat"
+            v-for="cat in types.slice(0, 10)" :key="cat"
             @click="$emit('selectType', cat)"
-            class="px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-all border capitalize"
-            :class="selectedType === cat ? 'bg-indigo-500 border-indigo-500 text-white shadow-md shadow-indigo-500/10' : 'bg-slate-50 dark:bg-white/5 border-slate-100 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:border-indigo-300'"
+            class="w-full text-left px-3 py-2 rounded-lg text-[11px] font-bold transition-all flex items-center justify-between capitalize"
+            :class="selectedType === cat ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5'"
           >
             {{ formatCategory(cat) }}
+            <CheckIcon v-if="selectedType === cat" class="w-3 h-3 text-indigo-500" />
           </button>
         </div>
       </div>
@@ -111,7 +113,7 @@
       </div>
 
       <!-- STATUS / AVAILABILITY (Compact chips) -->
-      <div class="p-4 border-b border-slate-50 dark:border-white/5">
+      <div class="p-4">
         <div class="flex gap-2">
           <button 
             @click="$emit('update:inStock', !inStock)"
@@ -128,23 +130,6 @@
           >
             <div class="w-1.5 h-1.5 rounded-full" :class="onSale ? 'bg-red-500 animate-pulse' : 'bg-slate-300'"></div>
             <span class="text-[10px] font-black uppercase tracking-tighter">On Sale</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- RATING (Mini grid) -->
-      <div class="p-4">
-        <div class="flex items-center gap-2 mb-3">
-          <StarIcon class="w-3.5 h-3.5 text-indigo-500" />
-          <span class="text-[11px] font-black text-slate-900 dark:text-white uppercase tracking-tight">Customer Rating</span>
-        </div>
-        <div class="grid grid-cols-4 gap-2">
-          <button 
-            v-for="star in [4, 3, 2, 1]" :key="star"
-            class="flex flex-col items-center py-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 hover:border-amber-400 transition-all group"
-          >
-            <span class="text-[10px] font-black text-slate-700 dark:text-slate-300 group-hover:text-amber-500">{{ star }}+</span>
-            <StarIcon class="w-2.5 h-2.5 text-amber-400 fill-current" />
           </button>
         </div>
       </div>
@@ -181,7 +166,8 @@ import {
   RotateCcwIcon,
   DollarSignIcon,
   StarIcon,
-  TagIcon
+  TagIcon,
+  CheckIcon
 } from 'lucide-vue-next';
 
 const props = defineProps<{
