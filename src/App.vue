@@ -2,7 +2,7 @@
   <div class="h-screen flex flex-col font-sans antialiased transition-colors duration-300 overflow-hidden">
     <NavBar class="flex-shrink-0" />
     
-    <main class="flex-grow overflow-y-auto">
+    <main :class="['flex-grow', hideFooter ? 'overflow-hidden' : 'overflow-y-auto']">
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
           <component :is="Component" />

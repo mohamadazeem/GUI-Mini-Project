@@ -1,122 +1,106 @@
 <template>
-  <div class="min-h-screen flex w-full bg-[#F8FAFC] dark:bg-[#0B0E14] font-sans transition-colors duration-500 overflow-hidden">
+  <div class="h-full flex w-full bg-white dark:bg-[#0B0E14] font-sans overflow-hidden">
     
     <!-- LEFT SIDE: IMAGE & GREETING -->
-    <div class="hidden lg:flex lg:w-1/2 relative h-screen overflow-hidden">
+    <div class="hidden lg:flex lg:w-1/2 relative h-full overflow-hidden">
       <img 
         src="/new_login_image.png" 
         alt="Azeem Stores Member" 
         class="absolute inset-0 w-full h-full object-cover animate-slow-zoom"
       />
-      <div class="absolute inset-0 bg-gradient-to-tr from-[#0F172A]/90 via-[#1E3A8A]/40 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-tr from-[#1E3A8A]/90 via-[#1E40AF]/40 to-transparent"></div>
 
-      <!-- Glassmorphism Greeting Card -->
       <div class="relative z-10 flex flex-col justify-center items-start px-20 w-full h-full">
-        <div class="bg-white/10 backdrop-blur-xl p-12 rounded-[3rem] border border-white/20 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] animate-fade-in-up">
-          <button @click="$router.push('/login')" class="flex items-center gap-3 text-white/80 hover:text-white mb-10 transition-all group font-black uppercase tracking-[0.2em] text-[10px]">
-            <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
-              <ChevronLeftIcon class="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            </div>
-            <span>Back to Login</span>
-          </button>
-          
-          <h1 class="text-6xl font-black text-white tracking-tighter leading-none mb-4">Join Us.</h1>
-          <p class="text-white/80 text-xl font-bold tracking-tight max-w-sm leading-relaxed">
+        <div class="bg-white/10 backdrop-blur-xl p-10 rounded-[3rem] border border-white/20 shadow-2xl animate-fade-in-up">
+          <div class="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center mb-6 border border-white/30 shadow-inner">
+            <UserPlusIcon class="w-7 h-7 text-white" />
+          </div>
+          <h1 class="text-5xl font-black text-white tracking-tighter leading-none mb-4">Join Us.</h1>
+          <p class="text-white/80 text-lg font-bold tracking-tight max-w-sm leading-relaxed">
             Create your account and unlock the full potential of <span class="text-sky-300 font-black">Azeem Stores</span>.
           </p>
         </div>
       </div>
     </div>
 
-    <!-- RIGHT SIDE: REGISTER FORM -->
-    <div class="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-20 relative">
-      
-      <!-- Mobile Greeting -->
-      <div class="lg:hidden absolute top-0 left-0 right-0 h-48 bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] flex flex-col justify-center px-10 rounded-b-[3rem]">
-        <h1 class="text-3xl font-black text-white tracking-tighter mb-1">Join Azeem Stores</h1>
-        <p class="text-white/80 text-[10px] font-black uppercase tracking-widest">Exclusive Membership</p>
-      </div>
-
-      <div class="w-full max-w-[500px] bg-white dark:bg-[#161B22] p-10 sm:p-12 rounded-[3rem] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] dark:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)] border border-slate-200 dark:border-white/5 relative z-10 lg:mt-0 mt-20">
+    <!-- RIGHT SIDE: COMPACT REGISTER FORM -->
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8 relative overflow-hidden">
+      <div class="w-full max-w-[420px] flex flex-col items-center animate-fade-in scale-90 sm:scale-95">
         
-        <div class="mb-12">
-          <h2 class="text-4xl font-black text-slate-900 dark:text-white tracking-tight">Sign Up</h2>
-          <div class="h-1.5 w-12 bg-sky-500 rounded-full mt-4"></div>
+        <!-- Logo Header -->
+        <div class="flex items-center gap-2 mb-6">
+          <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-600/20">
+            <ShoppingBagIcon class="w-4 h-4 text-white" />
+          </div>
+          <h1 class="text-xl font-black text-slate-900 dark:text-white tracking-tight">Azeem Stores</h1>
         </div>
 
-        <form @submit.prevent="handleRegister" class="space-y-5 pt-2">
+        <!-- Welcome Text -->
+        <div class="w-full mb-5 text-left px-2">
+          <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-0.5 leading-tight">Create Account</h2>
+          <p class="text-slate-400 dark:text-slate-500 font-medium text-sm">Fill in your details to get started.</p>
+        </div>
+
+        <!-- Register Form -->
+        <form @submit.prevent="handleRegister" class="w-full space-y-3 px-2">
           <!-- Full Name -->
-          <div class="group">
-            <label class="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 mb-2.5 block">Full Name</label>
-            <div class="relative flex items-center">
-              <div class="absolute left-6 text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                <UserIcon class="w-5 h-5" />
-              </div>
-              <input
-                v-model="name"
-                type="text"
-                required
-                class="w-full pl-16 pr-6 py-7 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-transparent group-focus-within:border-sky-500 group-focus-within:bg-white dark:group-focus-within:bg-white/10 rounded-[1.5rem] text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none transition-all font-bold text-base shadow-sm"
-                placeholder="John Doe"
-              />
-            </div>
+          <div class="space-y-1">
+            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block px-1">Full Name</label>
+            <input
+              v-model="name"
+              type="text"
+              required
+              class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800/50 border-none rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 transition-all font-bold text-sm"
+              placeholder="e.g. John Doe"
+            />
           </div>
 
           <!-- Username -->
-          <div class="group">
-            <label class="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 mb-2.5 block">Username</label>
-            <div class="relative flex items-center">
-              <div class="absolute left-6 text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                <MailIcon class="w-5 h-5" />
-              </div>
-              <input
-                v-model="username"
-                type="text"
-                required
-                class="w-full pl-16 pr-6 py-7 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-transparent group-focus-within:border-sky-500 group-focus-within:bg-white dark:group-focus-within:bg-white/10 rounded-[1.5rem] text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none transition-all font-bold text-base shadow-sm"
-                placeholder="Choose unique username"
-              />
-            </div>
+          <div class="space-y-1">
+            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block px-1">Username</label>
+            <input
+              v-model="username"
+              type="text"
+              required
+              class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800/50 border-none rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 transition-all font-bold text-sm"
+              placeholder="Choose a username"
+            />
           </div>
 
           <!-- Password -->
-          <div class="group">
-            <label class="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 mb-2.5 block">Security Key</label>
-            <div class="relative flex items-center">
-              <div class="absolute left-6 text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                <LockIcon class="w-5 h-5" />
-              </div>
-              <input
-                v-model="password"
-                type="password"
-                required
-                class="w-full pl-16 pr-6 py-7 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-transparent group-focus-within:border-sky-500 group-focus-within:bg-white dark:group-focus-within:bg-white/10 rounded-[1.5rem] text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none transition-all font-bold text-base shadow-sm"
-                placeholder="Min 8 characters"
-              />
-            </div>
+          <div class="space-y-1">
+            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block px-1">Password</label>
+            <input
+              v-model="password"
+              type="password"
+              required
+              class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800/50 border-none rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 transition-all font-bold text-sm"
+              placeholder="Min. 8 characters"
+            />
           </div>
 
           <!-- Sign Up Button -->
           <button
             type="submit"
             :disabled="isLoading || !username || !password || !name"
-            class="w-full py-5 mt-6 bg-gradient-to-r from-[#1E3A8A] to-[#3B82F6] hover:from-[#1E40AF] hover:to-[#2563EB] text-white font-black rounded-[1.25rem] transition-all shadow-xl shadow-blue-500/30 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 group overflow-hidden relative"
+            class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl transition-all shadow-lg shadow-blue-600/20 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center text-base mt-2"
           >
-            <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-            <Loader2Icon v-if="isLoading" class="w-5 h-5 animate-spin relative z-10" />
-            <span class="tracking-[0.2em] uppercase text-xs relative z-10">{{ isLoading ? 'Processing...' : 'Register Account' }}</span>
-            <ArrowRightIcon v-if="!isLoading" class="w-4 h-4 transition-transform group-hover:translate-x-1 relative z-10" />
+            <Loader2Icon v-if="isLoading" class="w-5 h-5 animate-spin mr-2" />
+            <span>{{ isLoading ? 'Creating...' : 'Register Now' }}</span>
           </button>
         </form>
 
-        <p class="mt-12 text-center text-[10px] font-bold text-slate-400 leading-relaxed max-w-xs mx-auto">
-          By registering, you confirm your agreement with our <span class="text-sky-500 cursor-pointer">Terms of Service</span> and <span class="text-sky-500 cursor-pointer">Privacy Guidelines</span>.
+        <p class="mt-4 text-center text-[9px] font-bold text-slate-400 leading-relaxed max-w-xs mx-auto">
+          By registering, you agree to our <span class="text-blue-500 cursor-pointer">Terms</span> and <span class="text-blue-500 cursor-pointer">Privacy Policy</span>.
         </p>
 
-        <p class="mt-10 text-center text-[11px] font-bold text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-white/5 pt-10">
-          Existing member? 
-          <router-link to="/login" class="text-sky-500 font-black hover:underline uppercase tracking-widest ml-1 transition-colors">Sign In Here</router-link>
-        </p>
+        <!-- Footer -->
+        <div class="w-full pt-4 mt-4 border-t border-slate-100 dark:border-white/5 flex justify-center">
+          <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400">
+            Already a member? 
+            <router-link to="/login" class="text-blue-600 font-black hover:underline uppercase tracking-widest text-[9px] ml-1">Sign In</router-link>
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -127,12 +111,9 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuth } from '../composables/useAuth';
 import { 
-  UserIcon,
-  LockIcon, 
-  MailIcon,
+  ShoppingBagIcon, 
+  UserPlusIcon,
   Loader2Icon,
-  ChevronLeftIcon,
-  ArrowRightIcon
 } from 'lucide-vue-next';
 
 const router = useRouter();
@@ -168,4 +149,13 @@ const handleRegister = async () => {
 .animate-slow-zoom {
   animation: slowZoom 30s linear infinite alternate;
 }
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
+
