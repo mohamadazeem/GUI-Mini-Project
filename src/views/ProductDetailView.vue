@@ -32,29 +32,37 @@
 
     <!-- Content -->
     <div v-else-if="product" class="animate-fade-in flex flex-col md:flex-row gap-8 lg:gap-12">
-      <!-- Image Gallery (Showing 3 Views) -->
-      <div class="w-full md:w-1/2 flex flex-col gap-6">
-        <div class="aspect-square bg-white dark:bg-slate-800 rounded-[3rem] p-8 flex items-center justify-center border border-slate-100 dark:border-white/5 shadow-2xl overflow-hidden group relative">
-          <img 
-            :src="selectedImage || product.thumbnail" 
-            :alt="product.title"
-            class="max-h-full object-contain transition-transform duration-700 group-hover:scale-110"
-          />
-          <div class="absolute bottom-6 right-6 bg-sky-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">
-            High Detail View
+      <!-- Image Gallery (Professional Horizontal Layout) -->
+      <div class="w-full md:w-1/2 flex flex-col md:flex-row gap-6 lg:gap-8 items-center">
+        <!-- Main Product Image (Left) -->
+        <div class="w-full md:flex-1 aspect-square bg-white dark:bg-slate-800 rounded-[3rem] p-8 flex items-center justify-center border border-slate-100 dark:border-white/5 shadow-2xl overflow-hidden group relative">
+          <transition name="fade" mode="out-in">
+            <img 
+              :key="selectedImage || product.thumbnail"
+              :src="selectedImage || product.thumbnail" 
+              :alt="product.title"
+              class="max-h-full object-contain transition-transform duration-700 group-hover:scale-110"
+            />
+          </transition>
+          <div class="absolute top-6 left-6 bg-sky-500/10 backdrop-blur-md text-sky-600 dark:text-sky-400 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest border border-sky-500/20">
+            Premium Quality
           </div>
         </div>
         
-        <!-- The 3 Views -->
-        <div v-if="product.images && product.images.length > 0" class="grid grid-cols-3 gap-4">
+        <!-- Vertical Thumbnails (Right) -->
+        <div v-if="product.images && product.images.length > 0" class="flex flex-row md:flex-col gap-4 w-full md:w-auto justify-center">
           <button 
             v-for="(img, idx) in product.images.slice(0, 3)" 
             :key="idx" 
             @click="selectedImage = img"
-            class="aspect-square bg-white dark:bg-slate-800 rounded-2xl border-2 overflow-hidden transition-all duration-300"
-            :class="selectedImage === img || (!selectedImage && idx === 0) ? 'border-sky-500 scale-95' : 'border-transparent hover:border-sky-300 opacity-60 hover:opacity-100'"
+            class="w-20 h-20 md:w-24 md:h-24 bg-white dark:bg-slate-800 rounded-2xl border-2 overflow-hidden transition-all duration-300 relative group"
+            :class="selectedImage === img || (!selectedImage && idx === 0) ? 'border-sky-500 ring-4 ring-sky-500/20' : 'border-slate-100 dark:border-slate-700 hover:border-sky-300 opacity-80 hover:opacity-100'"
           >
-            <img :src="img" class="w-full h-full object-cover" />
+            <img :src="img" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+            <div 
+              v-if="selectedImage === img || (!selectedImage && idx === 0)"
+              class="absolute inset-0 bg-sky-500/5 pointer-events-none"
+            ></div>
           </button>
         </div>
       </div>
@@ -151,8 +159,8 @@ onMounted(() => {
 });
 
 watch(product, (newVal) => {
-  if (newVal && newVal.images.length > 0) {
-    selectedImage.value = newVal.thumbnail;
+  if (newVal) {
+    selectedImage.value = newVal.images && newVal.images.length > 0 ? newVal.images[0] : newVal.thumbnail;
   }
 });
 
@@ -178,10 +186,27 @@ const onToggleWishlist = () => {
 
 <style scoped>
 .animate-fade-in {
-  animation: fadeIn 0.4s ease-out;
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Image Switch Transition */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: scale(1.05);
 }
 </style>
