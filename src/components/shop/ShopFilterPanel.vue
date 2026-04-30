@@ -39,7 +39,7 @@
       <div class="p-3.5 border-b border-slate-50 dark:border-white/5 relative">
         <div class="flex items-center justify-between mb-2">
           <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Category</span>
-          <button @click="$emit('selectType', '')" class="text-[10px] font-bold text-teal-500 hover:text-teal-400 transition-colors uppercase tracking-tight">Clear</button>
+          <button @click="$emit('selectType', '')" class="text-[10px] font-bold text-indigo-500 hover:text-indigo-600 transition-colors uppercase tracking-tight">Clear</button>
         </div>
         <div class="relative">
           <button @click="toggleDropdown('categories')" class="w-full flex items-center justify-between px-5 py-3 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-sm font-medium transition-all hover:border-indigo-400/50 group">
@@ -58,7 +58,7 @@
       <div class="p-3.5 border-b border-slate-50 dark:border-white/5 relative">
         <div class="flex items-center justify-between mb-2">
           <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Brand</span>
-          <button @click="$emit('update:selectedBrand', '')" class="text-[10px] font-bold text-teal-500 hover:text-teal-400 transition-colors uppercase tracking-tight">Clear</button>
+          <button @click="$emit('update:selectedBrand', '')" class="text-[10px] font-bold text-indigo-500 hover:text-indigo-600 transition-colors uppercase tracking-tight">Clear</button>
         </div>
         <div class="relative">
           <button @click="toggleDropdown('brands')" class="w-full flex items-center justify-between px-5 py-3 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-sm font-medium transition-all hover:border-indigo-400/50 group">

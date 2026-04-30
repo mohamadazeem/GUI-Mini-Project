@@ -10,19 +10,19 @@
       
       <!-- DISCOUNT TAG -->
       <div v-if="product.discountPercentage" 
-           class="absolute top-3 left-3 bg-sky-400 text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-wider">
+           class="absolute top-3 left-3 bg-indigo-600 text-white text-[8px] font-black px-2 py-1 rounded-md uppercase tracking-wider shadow-lg shadow-indigo-600/20">
         -{{ Math.round(product.discountPercentage) }}%
       </div>
 
       <!-- WISHLIST BUTTON -->
       <button @click.stop="toggleWishlist(product)"
-        class="absolute top-3 right-3 p-2 bg-white/80 dark:bg-black/40 backdrop-blur-md rounded-xl text-slate-300 hover:text-sky-400 transition-colors z-10 border border-white/10">
-        <HeartIcon class="w-4 h-4" :class="{'fill-sky-400 text-sky-400': isInWishlist(product.id)}" />
+        class="absolute top-3 right-3 p-2 bg-white/80 dark:bg-black/40 backdrop-blur-md rounded-xl text-slate-300 hover:text-indigo-600 transition-colors z-10 border border-white/10">
+        <HeartIcon class="w-4 h-4" :class="{'fill-indigo-600 text-indigo-600': isInWishlist(product.id)}" />
       </button>
 
       <!-- ADD TO CART BUTTON (Minimalist) -->
       <button @click.stop="$emit('add-to-cart', product)"
-        class="absolute bottom-3 right-3 p-3.5 bg-slate-800 dark:bg-sky-400 text-white rounded-2xl shadow-xl translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 hover:bg-sky-500">
+        class="absolute bottom-3 right-3 p-3.5 bg-slate-800 dark:bg-indigo-600 text-white rounded-2xl shadow-xl translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 hover:bg-indigo-700">
         <PlusIcon class="w-5 h-5" />
       </button>
     </div>
@@ -30,7 +30,7 @@
     <!-- CONTENT -->
     <div class="px-1 flex flex-col flex-1">
       <p class="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">{{ product.category }}</p>
-      <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-1 mb-4 group-hover:text-sky-500 transition-colors tracking-tight">
+      <h3 class="text-sm font-bold text-slate-900 dark:text-white line-clamp-1 mb-4 group-hover:text-indigo-600 transition-colors tracking-tight">
         {{ product.title }}
       </h3>
       
