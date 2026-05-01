@@ -231,29 +231,7 @@
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════
-         NEWSLETTER SECTION
-    ═══════════════════════════════════════════ -->
-    <section class="relative z-10 pb-24 px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto text-center bg-white dark:bg-slate-900 rounded-[3rem] p-12 shadow-[0_20px_60px_rgba(99,102,241,0.12)] dark:shadow-[0_20px_60px_rgba(99,102,241,0.06)] border border-slate-100 dark:border-slate-800">
-        <div class="text-5xl mb-4">💌</div>
-        <h2 class="text-3xl font-black text-slate-900 dark:text-white tracking-tighter mb-2">Stay in the Loop</h2>
-        <p class="text-slate-500 dark:text-slate-400 mb-8 max-w-md mx-auto">Get exclusive deals, early access to sales, and new arrivals straight to your inbox.</p>
-        <form @submit.prevent="subscribeNewsletter" class="flex gap-3 max-w-md mx-auto">
-          <input
-            v-model="newsletterEmail"
-            type="email"
-            placeholder="your@email.com"
-            class="flex-1 px-5 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm"
-          />
-          <button type="submit"
-            class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-black rounded-xl text-sm uppercase tracking-widest transition-all shadow-lg hover:shadow-indigo-500/30 hover:-translate-y-0.5">
-            Subscribe
-          </button>
-        </form>
-        <p v-if="subscribeMsg" class="mt-4 text-sm font-semibold text-indigo-500">{{ subscribeMsg }}</p>
-      </div>
-    </section>
+
 
   </div>
 </template>
@@ -282,8 +260,7 @@ const { toggleWishlist, isInWishlist } = useWishlist();
 
 const activeTab = ref('new');
 const showAllProducts = ref(false);
-const newsletterEmail = ref('');
-const subscribeMsg = ref('');
+
 
 watch([activeTab], () => { showAllProducts.value = false; });
 
@@ -335,12 +312,7 @@ const paginatedProducts = computed(() => {
 
 const goToProduct = (id: number) => router.push(`/product/${id}`);
 
-const subscribeNewsletter = () => {
-  if (!newsletterEmail.value) return;
-  subscribeMsg.value = '🎉 Thanks for subscribing! Check your inbox soon.';
-  newsletterEmail.value = '';
-  setTimeout(() => (subscribeMsg.value = ''), 4000);
-};
+
 </script>
 
 <style scoped>
