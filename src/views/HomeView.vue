@@ -195,43 +195,47 @@
     </section>
 
     <!-- ═══════════════════════════════════════════
-         PROMO DUAL BANNER
+         CREATIVE PROMO BANNERS
     ═══════════════════════════════════════════ -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 relative z-10">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Promo 1 -->
-        <div class="relative rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-indigo-600 to-blue-700 p-10 min-h-[220px] flex flex-col justify-between group hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
-          <div class="absolute right-0 bottom-0 w-48 h-48 bg-white/10 rounded-full translate-x-12 translate-y-12 group-hover:scale-110 transition-transform duration-700"></div>
-          <div class="absolute right-8 bottom-8 text-7xl opacity-30 group-hover:opacity-50 transition-opacity">👗</div>
-          <div class="relative z-10">
-            <span class="text-blue-200 text-xs font-black uppercase tracking-widest">Limited Time</span>
-            <h3 class="text-3xl font-black text-white mt-2 mb-1 tracking-tighter">Fashion Sale</h3>
-            <p class="text-blue-100 text-sm mb-6">Up to 60% off on trending styles</p>
-            <router-link to="/shop?category=womens-dresses"
-              class="inline-block px-6 py-3 bg-white text-indigo-700 font-black rounded-xl text-sm uppercase tracking-widest hover:bg-blue-50 transition-all shadow-lg">
-              Shop Fashion →
-            </router-link>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Promo 1 (Fashion) -->
+        <div class="group relative aspect-[16/9] rounded-[3rem] overflow-hidden cursor-pointer shadow-2xl transition-all duration-1000">
+          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop" 
+               class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+          <div class="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/40 to-transparent"></div>
+          <div class="relative h-full p-8 md:p-12 flex flex-col justify-center">
+            <span class="text-indigo-400 text-[10px] font-black uppercase tracking-[0.4em] mb-3">Seasonal Reveal</span>
+            <h3 class="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter leading-none">HAUTE<br/>COUTURE</h3>
+            <p class="text-slate-300 text-xs md:text-sm mb-8 max-w-xs font-medium">Elevate your presence with our most exclusive fashion curation yet.</p>
+            <div>
+               <router-link to="/shop?category=womens-dresses"
+                class="inline-flex items-center gap-3 px-8 py-3.5 bg-white text-slate-950 font-black rounded-xl text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-xl">
+                Explore Styles <ChevronRightIcon class="w-3.5 h-3.5" />
+              </router-link>
+            </div>
           </div>
         </div>
 
-        <!-- Promo 2 -->
-        <div class="relative rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-purple-600 to-pink-600 p-10 min-h-[220px] flex flex-col justify-between group hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
-          <div class="absolute right-0 bottom-0 w-48 h-48 bg-white/10 rounded-full translate-x-12 translate-y-12 group-hover:scale-110 transition-transform duration-700"></div>
-          <div class="absolute right-8 bottom-8 text-7xl opacity-30 group-hover:opacity-50 transition-opacity">⌚</div>
-          <div class="relative z-10">
-            <span class="text-pink-200 text-xs font-black uppercase tracking-widest">New Arrivals</span>
-            <h3 class="text-3xl font-black text-white mt-2 mb-1 tracking-tighter">Premium Watches</h3>
-            <p class="text-pink-100 text-sm mb-6">Luxury timepieces starting Rs. 15,000</p>
-            <router-link to="/shop?category=mens-watches"
-              class="inline-block px-6 py-3 bg-white text-purple-700 font-black rounded-xl text-sm uppercase tracking-widest hover:bg-pink-50 transition-all shadow-lg">
-              Shop Watches →
-            </router-link>
+        <!-- Promo 2 (Watches) -->
+        <div class="group relative aspect-[16/9] rounded-[3rem] overflow-hidden cursor-pointer shadow-2xl transition-all duration-1000">
+          <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=2080&auto=format&fit=crop" 
+               class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+          <div class="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/40 to-transparent"></div>
+          <div class="relative h-full p-8 md:p-12 flex flex-col justify-center">
+            <span class="text-slate-400 text-[10px] font-black uppercase tracking-[0.4em] mb-3">Precision Craft</span>
+            <h3 class="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter leading-none">MASTER<br/>PIECES</h3>
+            <p class="text-slate-300 text-xs md:text-sm mb-8 max-w-xs font-medium">Timeless engineering meets contemporary aesthetic in our watch lab.</p>
+            <div>
+               <router-link to="/shop?category=mens-watches"
+                class="inline-flex items-center gap-3 px-8 py-3.5 bg-white text-slate-950 font-black rounded-xl text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-xl">
+                View Collection <ChevronRightIcon class="w-3.5 h-3.5" />
+              </router-link>
+            </div>
           </div>
         </div>
       </div>
     </section>
-
-
 
   </div>
 </template>
@@ -250,6 +254,7 @@ import {
   HeadphonesIcon,
   ShoppingCartIcon,
   HeartIcon,
+  ChevronRightIcon
 } from 'lucide-vue-next';
 
 const router = useRouter();
@@ -260,7 +265,6 @@ const { toggleWishlist, isInWishlist } = useWishlist();
 
 const activeTab = ref('new');
 const showAllProducts = ref(false);
-
 
 watch([activeTab], () => { showAllProducts.value = false; });
 
@@ -311,8 +315,6 @@ const paginatedProducts = computed(() => {
 });
 
 const goToProduct = (id: number) => router.push(`/product/${id}`);
-
-
 </script>
 
 <style scoped>

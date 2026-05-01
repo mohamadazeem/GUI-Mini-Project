@@ -80,7 +80,7 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useProducts } from '../composables/useProducts';
 import { useCart } from '../composables/useCart';
-import ShopHeaderBar from '../components/shop/ShopHeaderBar.vue';
+
 import ShopFilterPanel from '../components/shop/ShopFilterPanel.vue';
 import ShopProductCard from '../components/shop/ShopProductCard.vue';
 import { GhostIcon, ArrowUpIcon } from 'lucide-vue-next';

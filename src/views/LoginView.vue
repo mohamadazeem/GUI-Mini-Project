@@ -43,6 +43,10 @@
 
         <!-- Login Form -->
         <form @submit.prevent="handleLogin" class="w-full space-y-3 px-2">
+          <div v-if="error" class="p-3 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-xl text-red-600 dark:text-red-400 text-xs font-bold flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+            {{ error }}
+          </div>
           <div class="space-y-1">
             <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block px-1">Username</label>
             <input
