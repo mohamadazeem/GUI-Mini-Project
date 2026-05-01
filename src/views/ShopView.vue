@@ -96,7 +96,7 @@ const selectedBrand = ref('');
 const filterInStock = ref(false);
 const filterOnSale = ref(false);
 const filterTopRated = ref(false);
-const filterMaxPrice = ref(5000);
+const filterMaxPrice = ref(50000);
 const showBackToTop = ref(false);
 
 const tags = ['Hot', 'Trending', 'Limited', 'New Arrival', 'Best Seller'];
@@ -116,13 +116,14 @@ const uniqueBrands = computed(() => {
 });
 
 const maxProductPrice = computed(() => {
-  if (products.value.length === 0) return 3000;
-  return Math.ceil(Math.max(...products.value.map(p => p.price)));
+  if (products.value.length === 0) return 50000;
+  const highestPrice = Math.ceil(Math.max(...products.value.map(p => p.price)));
+  return Math.max(highestPrice, 50000);
 });
 
 // Update initial filterMaxPrice when products are loaded
 watch(maxProductPrice, (newMax) => {
-  if (filterMaxPrice.value === 5000 || filterMaxPrice.value < newMax) {
+  if (filterMaxPrice.value === 50000 || filterMaxPrice.value < newMax) {
     filterMaxPrice.value = newMax;
   }
 }, { immediate: true });
