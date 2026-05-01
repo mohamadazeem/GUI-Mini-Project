@@ -125,13 +125,7 @@
 
     </div>
 
-    <!-- FOOTER -->
-    <div class="mt-auto p-4 bg-slate-50 dark:bg-white/[0.01] border-t border-slate-100 dark:border-white/5 flex items-center justify-center">
-      <div class="flex items-center gap-2.5 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-default">
-        <div class="w-6 h-6 rounded-lg bg-slate-400 dark:bg-slate-700 flex items-center justify-center text-white text-[8px] font-black">AZ</div>
-        <span class="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Azeem Stores &copy; 2024</span>
-      </div>
-    </div>
+
   </div>
 </template>
 
